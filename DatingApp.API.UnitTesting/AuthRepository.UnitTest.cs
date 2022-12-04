@@ -10,12 +10,12 @@ namespace DatingApp.API.UnitTesting
     {
         [Theory]
         [InlineData("lola", true)]
-        [InlineData("ra", true)]
+        [InlineData("ra", false)]
         public async Task UserExistsTest(string username, bool usernameExists)
         {
             //Arrange
             var options = new DbContextOptionsBuilder<DataContext>()
-                .UseInMemoryDatabase("TestDb")
+                .UseInMemoryDatabase("TestDB")
                 .Options;
             var dbContext = new DataContext(options);
 

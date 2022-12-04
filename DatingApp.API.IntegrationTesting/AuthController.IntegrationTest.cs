@@ -32,9 +32,10 @@ namespace DatingApp.API.IntegrationTesting
         }
 
         [Theory]
-        [InlineData("ra", "ra", "male", "pasedena", "USA", "2000-01-01", "Ra@123", "ra", "Ra@123")]
-        [InlineData("ra", "ra", "male", "pasedena", "USA", "2000-01-01", "Ra@123", "ra1", "Ra@123")]
-        public async Task LoginTest(string username, string knownAs, string gender, string city, string country, DateTime dob, string password, string usernameForLogin, string passwordForLogin)
+        [InlineData("ra", "ra", "male", "pasedena", "USA", "2000-01-01", "Ra@123", "ra", "Ra@123", true)]
+        [InlineData("ra", "ra", "male", "pasedena", "USA", "2000-01-01", "Ra@123", "ra1", "Ra@123", false)]
+        public async Task LoginTest(string username, string knownAs, string gender, string city, string country, DateTime dob, string password, 
+            string usernameForLogin, string passwordForLogin, bool isLoginCorrect)
         { 
             //Arrange
             var userDetail = new UserForRegisterDto
@@ -53,7 +54,14 @@ namespace DatingApp.API.IntegrationTesting
             await AuthenticateAsync(usernameForLogin, passwordForLogin);
 
             //Assert
-            Assert.NotEmpty(TestClient.DefaultRequestHeaders.Authorization.ToString().Split(" ")[1]);
+            if (isLoginCorrect)
+            {
+                Assert.NotEmpty(TestClient.DefaultRequestHeaders.Authorization.ToString().Split(" ")[1]);
+            }
+            else
+            {
+                Assert.True(TestClient.DefaultRequestHeaders.Authorization.ToString().Split(" ").Length==1);
+            }
         }       
         
     }

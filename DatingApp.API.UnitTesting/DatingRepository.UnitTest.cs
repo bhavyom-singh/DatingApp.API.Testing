@@ -12,11 +12,11 @@ namespace DatingApp.API.UnitTesting
         {
             //Arrange
             var options = new DbContextOptionsBuilder<DataContext>()
-                .UseInMemoryDatabase("TestDb")
+                .UseInMemoryDatabase("UnitTestDB")
                 .Options;
             var dbContext = new DataContext(options);
 
-            Seed.SeedUsers(dbContext);            
+            Seed.SeedUsers(dbContext); // we are seeding only 10 users.            
 
             //Act
             var query = new DatingRepository(dbContext);

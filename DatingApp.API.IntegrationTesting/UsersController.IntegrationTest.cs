@@ -10,8 +10,7 @@ namespace DatingApp.API.IntegrationTesting
     public class UsersControllerIntegrationTest : IntegrationTest
     {
         private string getUserUrl = "https://localhost:44366/api/users?orderBy=lastActive";
-        //private string getUserUrl = "https://localhost:44366/api/users?gender=female&orderBy=lastActive";
-
+        
         [Theory]
         [InlineData("ra", "ra", "male", "pasedena", "USA", "2000-01-01", "Ra@123")]
         public async Task GetUsers(string username, string knownAs, string gender, string city, string country, DateTime dob, string password)
